@@ -6,6 +6,9 @@ These exercises are part of the perception lessons in the [Udacity Robotics Nano
 ```
 $ sudo pip install cython
 ```
+### Download pcl-python
+* [Download](https://github.com/strawlab/python-pcl) python-pcl
+* follow instruction below to install it
 
 ### Build and Install pcl-python
 ```
