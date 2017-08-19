@@ -111,11 +111,11 @@ def pcl_callback(pcl_msg):
         # 1. Grab the points for the cluster
         pcl_cluster = cloud_objects.extract(pts_list)
         # 2. Convert the cluster from pcl to ROS
-        pcl_cluster = pcl_to_ros(pcl_cluster)
+        ros_cluster = pcl_to_ros(pcl_cluster)
         # 3. Extract color histogram features
-        color_hists = compute_color_histograms(pcl_cluster, using_hsv=True)
+        color_hists = compute_color_histograms(ros_cluster, using_hsv=True)
         # 4. Extract normal histogram features
-        normals = get_normals(pcl_cluster)
+        normals = get_normals(ros_cluster)
         normal_hists = compute_normal_histograms(normals)
         # 5. Compute the concatenated feature vector
         feature = np.concatenate((color_hists, normal_hists))
@@ -131,7 +131,7 @@ def pcl_callback(pcl_msg):
         # 8. Add the detected object to the list of detected objects.
         do = DetectedObject()
         do.label = label
-        do.cloud = ros_cluster_cloud
+        do.cloud = ros_cluster
         detected_objects.append(do)
 
     rospy.loginfo('Detected {} objects: {}'.format(len(detected_objects_labels), detected_objects_labels))
